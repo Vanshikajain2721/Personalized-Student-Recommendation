@@ -4,3 +4,5 @@ numpy
 scikit-learn
 matplotlib
 seaborn
+Flask==2.2.2
+gunicorn==20.1.0  # Recommended for production deployment
