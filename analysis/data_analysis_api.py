@@ -2,7 +2,7 @@ from flask import Flask, jsonify, send_file
 import pandas as pd
 import requests
 import matplotlib.pyplot as plt
-from waitress import serve
+
 
 app = Flask(__name__)
 
@@ -91,8 +91,3 @@ def get_visualization():
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
-
-
-
-if __name__ == "__main__":
-    serve(app, host='0.0.0.0', port=5000)
