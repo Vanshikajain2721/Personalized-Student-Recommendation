@@ -1,1 +1,1 @@
-web: gunicorn app:app
+web: gunicorn app:data_analysis_api
