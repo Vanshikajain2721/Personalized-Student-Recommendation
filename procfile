@@ -1,1 +1,1 @@
-web: gunicorn analysis.data_analysis_api:app
+web: gunicorn --bind 0.0.0.0:$PORT analysis.data_analysis_api:app
