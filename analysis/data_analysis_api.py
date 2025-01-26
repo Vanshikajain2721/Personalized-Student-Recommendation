@@ -29,14 +29,19 @@ def load_data():
     historical_data = fetch_data(historical_data_url)
 
     if not all([current_data, sub_data, historical_data]):
-        print("Error: One or more data sources could not be loaded. Exiting.")
-        exit()
+        return None, None, None  # Handle failure gracefully
 
     return (
         pd.json_normalize(current_data),
         pd.json_normalize(sub_data),
         pd.json_normalize(historical_data),
     )
+
+Current_df, Sub_data_df, Historical_df = load_data()
+
+if any(df.empty for df in [Current_df, Sub_data_df, Historical_df]):
+    print("Error: One or more data sources could not be loaded.")
+    # Handle gracefully
 
 # Generate visualizations
 def generate_visualizations(sub_data_df, historical_df):
@@ -48,7 +53,8 @@ def generate_visualizations(sub_data_df, historical_df):
         plt.xlabel("Score")
         plt.ylabel("Frequency")
         plt.legend()
-        plt.savefig("score_distribution.png")
+        # Use a path that ensures the file is saved correctly on Render
+        plt.savefig("/tmp/score_distribution.png")
     except Exception as e:
         print(f"Error during visualization: {e}")
 
@@ -83,4 +89,4 @@ def get_visualization():
     return send_file("score_distribution.png", mimetype='image/png')
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
